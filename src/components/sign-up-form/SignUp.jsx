@@ -19,8 +19,6 @@ const SignUp = () => {
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { displayName, email, password, confirmPassword } = formFields;
 
-  console.log(formFields);
-
   const resetFormFields = () => {
     setFormFields(defaultFormFields);
   };
@@ -28,8 +26,8 @@ const SignUp = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    if (password != confirmPassword) {
-      alert("Your password do not match!");
+    if (password !== confirmPassword) {
+      alert("passwords do not match");
       return;
     }
 
@@ -39,17 +37,13 @@ const SignUp = () => {
         password
       );
 
-      await createUserDocumentFromAuth(user, {
-        displayName,
-      });
+      await createUserDocumentFromAuth(user, { displayName });
       resetFormFields();
-
-      // console.log(response);
     } catch (error) {
-      if (error.code == "auth/email-already-in-use") {
-        alert("cannot create user, email already in use");
+      if (error.code === "auth/email-already-in-use") {
+        alert("Cannot create user, email already in use");
       } else {
-        console.log("user creation ecnoutered an error", error);
+        console.log("user creation encountered an error", error);
       }
     }
   };
@@ -57,21 +51,18 @@ const SignUp = () => {
   const handleChange = (event) => {
     const { name, value } = event.target;
 
-    setFormFields({
-      ...formFields,
-      [name]: value,
-    });
+    setFormFields({ ...formFields, [name]: value });
   };
 
   return (
     <div className="sign-up-container">
       <h2>Don't have an account?</h2>
-      <span>Sing up with your email and password</span>
+      <span>Sign up with your email and password</span>
       <form onSubmit={handleSubmit}>
         <FormInput
           label="Display Name"
-          required
           type="text"
+          required
           onChange={handleChange}
           name="displayName"
           value={displayName}
@@ -79,8 +70,8 @@ const SignUp = () => {
 
         <FormInput
           label="Email"
-          required
           type="email"
+          required
           onChange={handleChange}
           name="email"
           value={email}
