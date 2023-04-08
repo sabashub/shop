@@ -1,8 +1,9 @@
 import React from "react";
 import { useState } from "react";
 import FormInput from "../form-input/Form-Input";
+import { Button_type_classes } from "../button/Button";
 import Button from "../button/Button";
-import "./Sign-In.scss";
+import { SignUpContainer, ButtonsContainer } from "./Sign-In.styles.jsx";
 import {
   signInWithGooglePopup,
   createUserDocumentFromAuth,
@@ -46,7 +47,7 @@ const SignIn = () => {
   };
 
   return (
-    <div className="sign-up-container">
+    <SignUpContainer>
       <h2>Already have an account?</h2>
       <span>Sign in with your email and password</span>
       <form onSubmit={handleSubmit}>
@@ -67,14 +68,18 @@ const SignIn = () => {
           name="password"
           value={password}
         />
-        <div className="buttons-container">
+        <ButtonsContainer>
           <Button type="submit">Sign In</Button>
-          <Button type="button" buttonType="google" onClick={signInWithGoogle}>
+          <Button
+            type="button"
+            buttonType={Button_type_classes.google}
+            onClick={signInWithGoogle}
+          >
             Google sign in
           </Button>
-        </div>
+        </ButtonsContainer>
       </form>
-    </div>
+    </SignUpContainer>
   );
 };
 
