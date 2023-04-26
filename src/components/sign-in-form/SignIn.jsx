@@ -1,14 +1,14 @@
-import React from "react";
 import { useState } from "react";
 import FormInput from "../form-input/Form-Input";
-import { Button_type_classes } from "../button/Button";
-import Button from "../button/Button";
-import { SignUpContainer, ButtonsContainer } from "./Sign-In.styles.jsx";
+
+import Button, { Button_type_classes } from "../button/Button";
+
 import {
-  signInWithGooglePopup,
-  createUserDocumentFromAuth,
   signInAuthUserWithEmailAndPassword,
+  signInWithGooglePopup,
 } from "../../utils/firebase/Firebase";
+
+import { SignInContainer, ButtonsContainer } from "./Sign-In.styles";
 
 const defaultFormFields = {
   email: "",
@@ -32,8 +32,6 @@ const SignIn = () => {
 
     try {
       await signInAuthUserWithEmailAndPassword(email, password);
-      // setCurrentUser(user);
-
       resetFormFields();
     } catch (error) {
       console.log("user sign in failed", error);
@@ -45,9 +43,8 @@ const SignIn = () => {
 
     setFormFields({ ...formFields, [name]: value });
   };
-
   return (
-    <SignUpContainer>
+    <SignInContainer>
       <h2>Already have an account?</h2>
       <span>Sign in with your email and password</span>
       <form onSubmit={handleSubmit}>
@@ -79,7 +76,7 @@ const SignIn = () => {
           </Button>
         </ButtonsContainer>
       </form>
-    </SignUpContainer>
+    </SignInContainer>
   );
 };
 

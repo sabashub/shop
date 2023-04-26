@@ -4,8 +4,28 @@ import Authentication from "./routes/Authentication/Authentication";
 import { Routes, Route } from "react-router-dom";
 import Checkout from "./routes/checkout/Checkout";
 import Shop from "./routes/shop/Shop";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import {
+  onAuthStateChangedListener,
+  createUserDocumentFromAuth,
+} from "./utils/firebase/Firebase";
+import { setCurrentUser } from "./store/user/userAction";
 
 function App() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChangedListener((user) => {
+      if (user) {
+        createUserDocumentFromAuth(user);
+      }
+      dispatch(setCurrentUser(user));
+    });
+
+    return unsubscribe;
+  }, []);
+
   return (
     <Routes>
       <Route path="/" element={<Navigation />}>
