@@ -7,7 +7,8 @@ import { CategoriesProvider } from "./context/CategoriesContext";
 import { CartProvider } from "./context/CartContext";
 import { Provider } from "react-redux";
 import { store } from "./store/store";
-
+import { Elements } from "@stripe/react-stripe-js";
+import { stripePromise } from "./utils/stripe";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <Provider store={store}>
@@ -15,7 +16,9 @@ root.render(
       <React.StrictMode>
         <CategoriesProvider>
           <CartProvider>
-            <App />
+            <Elements stripe={stripePromise}>
+              <App />
+            </Elements>
           </CartProvider>
         </CategoriesProvider>
       </React.StrictMode>

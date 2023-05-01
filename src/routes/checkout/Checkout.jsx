@@ -7,6 +7,8 @@ import {
   Total,
 } from "./Checkout.styles.jsx";
 import CheckoutItem from "../../components/checkout-item/Checkout-Item";
+import PaymentForm from "../../components/payment-form/PaymentForm";
+
 const Checkout = () => {
   const { cartItems, cartTotal } = useContext(CartContext);
 
@@ -34,6 +36,7 @@ const Checkout = () => {
         return <CheckoutItem key={item.id} cartItem={item} />;
       })}
       <Total>Total: ${cartTotal}</Total>
+      <PaymentForm />
     </CheckoutContainer>
   );
 };

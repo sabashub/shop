@@ -18,9 +18,13 @@ const getButton = (buttonType = Button_type_classes.base) =>
     [Button_type_classes.inverted]: InvertedButton,
   }[buttonType]);
 
-const Button = ({ children, buttonType, ...otherProps }) => {
+const Button = ({ children, buttonType, isLoading, ...otherProps }) => {
   const CustomButton = getButton(buttonType);
-  return <CustomButton {...otherProps}>{children}</CustomButton>;
+  return (
+    <CustomButton disabled={isLoading} {...otherProps}>
+      {children}
+    </CustomButton>
+  );
 };
 
 export default Button;
